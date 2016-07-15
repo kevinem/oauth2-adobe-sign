@@ -30,12 +30,14 @@ class AdobeSignTest extends TestCase
     public function testScopes()
     {
         $options = [
-            'scope' => ['user_login:account', 'agreement_send:account']
+            'scope' => [
+                'user_login:account',
+                'agreement_send:account'
+            ]
         ];
 
         $url = $this->provider->getAuthorizationUrl($options);
-
-        $this->assertContains(urlencode(implode('+', $options['scope'])), $url);
+        $this->assertContains(implode('+', $options['scope']), $url);
     }
 
     public function testGetAuthorizationUrl()

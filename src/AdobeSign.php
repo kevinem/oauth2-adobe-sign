@@ -12,8 +12,6 @@ class AdobeSign extends AbstractProvider
 {
     protected $scope;
 
-    protected $baseUrl = 'https://api.na1.echosign.com/api/rest/v5';
-
     protected $baseAuthorizationUrl = 'https://secure.na1.echosign.com/public/oauth';
 
     protected $baseAccessTokenUrl = 'https://api.na1.echosign.com/oauth/token';
@@ -90,6 +88,25 @@ class AdobeSign extends AbstractProvider
     protected function getScopeSeparator()
     {
         return '+';
+    }
+
+    /**
+     * Builds the authorization URL's query string.
+     *
+     * @param  array $params Query parameters
+     * @return string Query string
+     */
+    protected function getAuthorizationQuery(array $params)
+    {
+        if (isset($params['scope'])) {
+            $scope = $params['scope'];
+            unset($params['scope']);
+            $query = parent::getAuthorizationQuery($params);
+
+            return "$query&scope=$scope";
+        } else {
+            return parent::getAuthorizationQuery($params);
+        }
     }
 
     /**
