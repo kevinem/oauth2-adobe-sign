@@ -16,6 +16,8 @@ class AdobeSign extends AbstractProvider
 
     protected $baseAccessTokenUrl = 'https://api.na1.echosign.com/oauth/token';
 
+    protected $baseRefreshTokenUrl = 'https://api.na1.echosign.com/oauth/refresh';
+
     /**
      * AdobeSign constructor.
      * @param array $options
@@ -53,6 +55,18 @@ class AdobeSign extends AbstractProvider
     public function getBaseAccessTokenUrl(array $params)
     {
         return $this->baseAccessTokenUrl;
+    }
+
+    /**
+     * Returns the base URL for requesting an refresh token.
+     *
+     * Eg. https://oauth.service.com/token
+     *
+     * @return string
+     */
+    public function getBaseRefreshTokenUrl()
+    {
+        return $this->baseRefreshTokenUrl;
     }
 
     /**
@@ -152,5 +166,24 @@ class AdobeSign extends AbstractProvider
         return [
             'Access-Token' => $token
         ];
+    }
+
+    /**
+     * Returns the full URL to use when requesting an access token.
+     *
+     * @param array $params Query parameters
+     * @return string
+     */
+    protected function getAccessTokenUrl(array $params)
+    {
+        $url = isset($params['refresh_token']) ? $this->getBaseRefreshTokenUrl() : $this->getBaseAccessTokenUrl($params);
+
+        if ($this->getAccessTokenMethod() === self::METHOD_GET) {
+            $query = $this->getAccessTokenQuery($params);
+
+            return $this->appendQuery($url, $query);
+        }
+
+        return $url;
     }
 }
