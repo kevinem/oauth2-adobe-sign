@@ -1,6 +1,8 @@
-# AdobeSign Provider for OAuth 2.0 Client
+# Adobe Sign Provider for OAuth 2.0 Client
 
-This package provides AdobeSign OAuth 2.0 support for The PHP League's [OAuth 2.0 Client](https://github.com/thephpleague/oauth2-client).
+https://acrobat.adobe.com/us/en/sign.html
+
+This package provides Adobe Sign OAuth 2.0 support for The PHP League's [OAuth 2.0 Client](https://github.com/thephpleague/oauth2-client).
 
 [![Latest Stable Version](https://poser.pugx.org/kevinem/oauth2-adobesign/v/stable?format=flat-square)](https://packagist.org/packages/kevinem/oauth2-adobesign)
 [![License](https://poser.pugx.org/kevinem/oauth2-adobesign/license?format=flat-square)](https://packagist.org/packages/kevinem/oauth2-adobesign)
@@ -10,7 +12,7 @@ This package provides AdobeSign OAuth 2.0 support for The PHP League's [OAuth 2.
 To install, use composer:
 
 ```
-composer require kevinem/oauth2-adobesign
+composer require kevinem/oauth2-adobe-sign
 ```
 
 ## Usage
