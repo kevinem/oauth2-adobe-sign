@@ -1,6 +1,6 @@
 {
-  "name": "kevinem/oauth2-adobesign",
-  "description": "AdobeSign OAuth 2.0 Client Provider for The PHP League OAuth2-Client",
+  "name": "kevinem/oauth2-adobe-sign",
+  "description": "Adobe Sign OAuth 2.0 Client Provider for The PHP League OAuth2-Client",
   "require": {
     "php": ">=5.5.0",
     "league/oauth2-client": "^1.4"
