@@ -6,6 +6,7 @@ This package provides Adobe Sign OAuth 2.0 support for The PHP League's [OAuth 2
 
 [![Latest Stable Version](https://poser.pugx.org/kevinem/oauth2-adobe-sign/v/stable?format=flat-square)](https://packagist.org/packages/kevinem/oauth2-adobe-sign)
 [![License](https://poser.pugx.org/kevinem/oauth2-adobe-sign/license?format=flat-square)](https://packagist.org/packages/kevinem/oauth2-adobe-sign)
+[![Build Status](https://travis-ci.org/kevinem/oauth2-adobe-sign.svg?branch=master)](https://travis-ci.org/kevinem/oauth2-adobe-sign)
 
 ## Installation
 

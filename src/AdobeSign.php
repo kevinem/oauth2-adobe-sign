@@ -176,14 +176,10 @@ class AdobeSign extends AbstractProvider
      */
     protected function getAccessTokenUrl(array $params)
     {
-        $url = isset($params['refresh_token']) ? $this->getBaseRefreshTokenUrl() : $this->getBaseAccessTokenUrl($params);
-
-        if ($this->getAccessTokenMethod() === self::METHOD_GET) {
-            $query = $this->getAccessTokenQuery($params);
-
-            return $this->appendQuery($url, $query);
+        if (isset($params['refresh_token'])) {
+            return $this->getBaseRefreshTokenUrl();
+        } else {
+            return $this->getBaseAccessTokenUrl($params);
         }
-
-        return $url;
     }
 }
