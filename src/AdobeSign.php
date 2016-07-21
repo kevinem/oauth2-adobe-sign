@@ -8,14 +8,30 @@ use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Token\AccessToken;
 use Psr\Http\Message\ResponseInterface;
 
+/**
+ * Class AdobeSign
+ * @package KevinEm\OAuth2\Client
+ */
 class AdobeSign extends AbstractProvider
 {
+    /**
+     * @var array
+     */
     protected $scope;
 
+    /**
+     * @var string
+     */
     protected $baseAuthorizationUrl = 'https://secure.na1.echosign.com/public/oauth';
 
+    /**
+     * @var string
+     */
     protected $baseAccessTokenUrl = 'https://api.na1.echosign.com/oauth/token';
 
+    /**
+     * @var string
+     */
     protected $baseRefreshTokenUrl = 'https://api.na1.echosign.com/oauth/refresh';
 
     /**
