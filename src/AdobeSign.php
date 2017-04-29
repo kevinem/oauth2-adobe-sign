@@ -5,6 +5,8 @@ namespace KevinEm\OAuth2\Client;
 
 
 use League\OAuth2\Client\Provider\AbstractProvider;
+use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
+use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use League\OAuth2\Client\Token\AccessToken;
 use Psr\Http\Message\ResponseInterface;
 
@@ -22,17 +24,7 @@ class AdobeSign extends AbstractProvider
     /**
      * @var string
      */
-    protected $baseAuthorizationUrl = 'https://secure.na1.echosign.com/public/oauth';
-
-    /**
-     * @var string
-     */
-    protected $baseAccessTokenUrl = 'https://api.na1.echosign.com/oauth/token';
-
-    /**
-     * @var string
-     */
-    protected $baseRefreshTokenUrl = 'https://api.na1.echosign.com/oauth/refresh';
+    protected $dataCenter = 'secure.na1';
 
     /**
      * AdobeSign constructor.
@@ -43,6 +35,10 @@ class AdobeSign extends AbstractProvider
     {
         if (isset($options['scope'])) {
             $this->scope = $options['scope'];
+        }
+
+        if (isset($options['dataCenter'])) {
+            $this->dataCenter = $options['dataCenter'];
         }
 
         parent::__construct($options, $collaborators);
@@ -57,7 +53,7 @@ class AdobeSign extends AbstractProvider
      */
     public function getBaseAuthorizationUrl()
     {
-        return $this->baseAuthorizationUrl;
+        return "https://$this->dataCenter.echosign.com/public/oauth";
     }
 
     /**
@@ -70,7 +66,7 @@ class AdobeSign extends AbstractProvider
      */
     public function getBaseAccessTokenUrl(array $params)
     {
-        return $this->baseAccessTokenUrl;
+        return "https://$this->dataCenter.echosign.com/oauth/token";
     }
 
     /**
@@ -82,7 +78,19 @@ class AdobeSign extends AbstractProvider
      */
     public function getBaseRefreshTokenUrl()
     {
-        return $this->baseRefreshTokenUrl;
+        return "https://$this->dataCenter.echosign.com/oauth/refresh";
+    }
+
+    /**
+     * Returns the base URL for revoking a access or refresh token.
+     *
+     * Eg. https://oauth.service.com/token
+     *
+     * @return string
+     */
+    public function getBaseRevokeTokenUrl()
+    {
+        return "https://$this->dataCenter.echosign.com/oauth/revoke";
     }
 
     /**
@@ -122,21 +130,19 @@ class AdobeSign extends AbstractProvider
 
     /**
      * Builds the authorization URL's query string.
+     * Override parent getAuthorizationQuery because AdobeSign does not accept urlencoded
+     * scope in as url query
      *
      * @param  array $params Query parameters
      * @return string Query string
      */
     protected function getAuthorizationQuery(array $params)
     {
-        if (isset($params['scope'])) {
-            $scope = $params['scope'];
-            unset($params['scope']);
-            $query = parent::getAuthorizationQuery($params);
+        $scope = $params['scope'];
+        unset($params['scope']);
+        $query = parent::getAuthorizationQuery($params);
 
-            return "$query&scope=$scope";
-        } else {
-            return parent::getAuthorizationQuery($params);
-        }
+        return "$query&scope=$scope";
     }
 
     /**

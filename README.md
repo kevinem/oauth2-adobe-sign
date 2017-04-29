@@ -27,6 +27,7 @@ $provider = new KevinEm\OAuth2\Client\AdobeSign([
     'clientId'          => 'your_client_id',
     'clientSecret'      => 'your_client_secret',
     'redirectUri'       => 'your_callback',
+    'dataCenter'        => 'secure.na1',
     'scope'             => [
           'scope1:type',
           'scope2:type'

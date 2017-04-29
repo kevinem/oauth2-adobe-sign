@@ -24,10 +24,10 @@ class AdobeSignTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->provider = new AdobeSign([
-            'clientId'     => 'mock_client_id',
+            'clientId' => 'mock_client_id',
             'clientSecret' => 'mock_client_secret',
-            'redirectUri'  => 'none',
-            'scope'        => [
+            'redirectUri' => 'none',
+            'scope' => [
                 'mock_scope:type'
             ]
         ]);
@@ -132,5 +132,23 @@ class AdobeSignTest extends \PHPUnit_Framework_TestCase
 
         $res = $this->provider->getResourceOwner($accessToken);
         $this->assertNull($res);
+    }
+
+    public function testDataCenterOption()
+    {
+        $provider = new AdobeSign([
+            'clientId' => 'mock_client_id',
+            'clientSecret' => 'mock_client_secret',
+            'redirectUri' => 'none',
+            'scope' => [
+                'mock_scope:type'
+            ],
+            'dataCenter' => 'api.jp1'
+        ]);
+
+        $this->assertEquals('https://api.jp1.echosign.com/public/oauth', $provider->getBaseAuthorizationUrl());
+        $this->assertEquals('https://api.jp1.echosign.com/oauth/token', $provider->getBaseAccessTokenUrl([]));
+        $this->assertEquals('https://api.jp1.echosign.com/oauth/refresh', $provider->getBaseRefreshTokenUrl());
+        $this->assertEquals('https://api.jp1.echosign.com/oauth/revoke', $provider->getBaseRevokeTokenUrl());
     }
 }
